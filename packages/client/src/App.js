@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
 // import { bindActionCreators } from 'redux';
 import {
 	getMessagesAction,
 	createMessageAction,
 } from './actions/actionCreators';
-import { Formik, Form, Field } from 'formik';
 import './App.css';
 // import * as chatActionCreators from './actions/actionCreators';
 
@@ -26,7 +26,7 @@ function App() {
 	};
 	
 	const renderForm = ({ values }) => {
-		// console.log('values', values);
+		console.log('values', values);
 		return (
 			<>
 				<ol>

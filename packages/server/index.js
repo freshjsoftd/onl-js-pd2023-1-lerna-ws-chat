@@ -1,9 +1,10 @@
 const http = require('http');
 // ============================
-const {Server} = require('socket.io')
+const {Server} = require('socket.io');
 // ============================
 const app = require('./app');
 const { Message } = require('./models');
+const {SOCKET_EVENTS} = require('../client/src/constant/constants')
 
 const PORT = 5000;
 
@@ -21,9 +22,19 @@ io.on('connect', (socket) => {
 	console.log('User has been connected')
 	console.log(`User id is ${socket.id}`)
 
-	socket.on('New message', async () => {
-		console.log('User has been connected')
-	})
+	socket.on(SOCKET_EVENTS.NEW_MESSAGE, async (message) => {
+		// console.log('User has been connected')
+		try {
+			const messageInstance = new Message(message);
+			const createdMessage = await messageInstance.save();
+			io.emit(SOCKET_EVENTS.NEW_MESSAGE, createdMessage);
+		} catch (error) {
+			socket.emit(SOCKET_EVENTS.MESSAGE_ERROR, error.message);
+		}
+		socket.on('disconnect', () => {
+			console.log('User has been disconnected');
+		});
+	});
 })
 
 httpServer.listen(PORT, () => {
