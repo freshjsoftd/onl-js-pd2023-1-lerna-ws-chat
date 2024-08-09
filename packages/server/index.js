@@ -21,6 +21,8 @@ const io = new Server(httpServer, ioOptions);
 io.on('connect', (socket) => {
 	console.log('User has been connected')
 	console.log(`User id is ${socket.id}`)
+	console.log(`User client is ${socket.client}`)
+	socket.rooms.forEach((room) => console.log('User room is: ', room))
 
 	socket.on(SOCKET_EVENTS.NEW_MESSAGE, async (message) => {
 		// console.log('User has been connected')
