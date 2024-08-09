@@ -27,6 +27,7 @@ io.on('connect', (socket) => {
 		try {
 			const messageInstance = new Message(message);
 			const createdMessage = await messageInstance.save();
+			console.log(createdMessage)
 			io.emit(SOCKET_EVENTS.NEW_MESSAGE, createdMessage);
 		} catch (error) {
 			socket.emit(SOCKET_EVENTS.MESSAGE_ERROR, error.message);

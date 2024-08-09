@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import {
 	createMessageError,
 	createMessageRequest,
-	createMessageSuccess,
+	// createMessageSuccess,
 	getMessagesError,
 	getMessagesRequest,
 	getMessagesSuccess,
@@ -22,8 +22,8 @@ export function* getMessagesSaga() {
 export function* createMessageSaga({ payload }) {
 	yield put(createMessageRequest());
 	try {
+		// yield put(createMessageSuccess(payload));
 		yield API.createMessage(payload);
-		yield put(createMessageSuccess(payload));
 	} catch (error) {
 		yield put(createMessageError(error));
 	}

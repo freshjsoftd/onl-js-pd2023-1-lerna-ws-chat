@@ -16,10 +16,21 @@ function App() {
     chatActionCreators,
     dispatch
   ) */
-  console.log(messages)
+  
+
 	useEffect(() => {
 		dispatch(getMessagesAction());
 	}, [dispatch]);
+
+	
+	messages.forEach((message) => {
+		if(!message){
+			dispatch(getMessagesAction())
+		}
+	})
+
+	console.log(messages)
+
 
 	const onFormSubmit = (values) => {
 		dispatch(createMessageAction(values));
@@ -31,9 +42,12 @@ function App() {
 			<>
 				<ol>
 					{messages.map((message) => (
+						message 
+						? 
 						<li key={message.createdAt}>
 							{message.author} {message.body} {message.createdAt}
 						</li>
+						: 'Render me please '
 					))}
 				</ol>
 				{error && <div>ERROR!!!</div>}
