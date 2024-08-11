@@ -38,6 +38,7 @@ function App() {
 	
 	const renderForm = ({ values }) => {
 		console.log('values', values);
+		
 		return (
 			<>
 				<ol>
